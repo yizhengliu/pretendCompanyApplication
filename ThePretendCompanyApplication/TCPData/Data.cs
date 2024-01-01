@@ -29,7 +29,7 @@ namespace TCPData
                 LastName = "James",
                 AnnualSalary = 80000.1m,
                 IsManager = true,
-                DepartmentId = 2
+                DepartmentId = 3
             };
             employees.Add(employee);
             employee = new Employee
@@ -49,14 +49,14 @@ namespace TCPData
                 LastName = "Stevens",
                 AnnualSalary = 30000.2m,
                 IsManager = false,
-                DepartmentId = 2
+                DepartmentId = 3
             };
             employees.Add(employee);
 
             return employees;
         }
 
-        public static List<Department> GetDepartments() 
+        public static List<Department> GetDepartments(IEnumerable<Employee> employees) 
         {
             List<Department> departments = new List<Department>();
 
@@ -64,21 +64,30 @@ namespace TCPData
             {
                 Id = 1,
                 ShortName = "HR",
-                LongName = "Human Resources"
+                LongName = "Human Resources",
+                Employees = from emp in employees
+                            where emp.DepartmentId == 1
+                            select emp
             };
             departments.Add(department);
             department = new Department
             {
                 Id = 2,
                 ShortName = "FN",
-                LongName = "Finance"
+                LongName = "Finance",
+                Employees = from emp in employees
+                            where emp.DepartmentId == 2
+                            select emp
             };
             departments.Add(department);
             department = new Department
             {
                 Id = 3,
                 ShortName = "TE",
-                LongName = "Technology"
+                LongName = "Technology",
+                Employees = from emp in employees
+                            where emp.DepartmentId == 3
+                            select emp
             };
             departments.Add(department);
             return departments;
